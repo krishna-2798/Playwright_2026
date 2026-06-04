@@ -1,8 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
 
-
-
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -35,15 +33,10 @@ export default defineConfig({
   use: {
     
     trace: 'on-first-retry',
-    headless: true,
+    headless: !!process.env.CI,  // false locally, true in CI
     screenshot: 'on',
     video: 'on',
     baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
-
-    httpCredentials: {
-      username: 'admin',
-      password: 'admin'
-    }
     
   },
 

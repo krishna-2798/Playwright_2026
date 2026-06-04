@@ -1,8 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
 
-
-
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -13,8 +11,8 @@ export default defineConfig({
   //retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-
-  reporter: [
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+   reporter: [
     ['html'],
     ['list'],
     ['allure-playwright'],
@@ -33,23 +31,17 @@ export default defineConfig({
   ],
   
   use: {
-    
     trace: 'on-first-retry',
-    headless: true,
-    screenshot: 'on',
+    headless: !!process.env.CI,  // false locally, true in CI
+    screenshot: 'on-first-failure',
     video: 'on',
     baseURL: 'https://naveenautomationlabs.com/opencart/index.php',
-
-    httpCredentials: {
-      username: 'admin',
-      password: 'admin'
-    }
     
   },
 
   metadata: {
-    appUsername: 'pwtest@nal.com',
-    appPassword: 'test123'
+    appUsername: 'test123@test.com',
+    appPassword: 'test'
   },
 
   /* Configure projects for major browsers */
@@ -115,5 +107,10 @@ export default defineConfig({
   // }
 ],
 
-
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
 });
