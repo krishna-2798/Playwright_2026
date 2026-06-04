@@ -1,4 +1,4 @@
-import { Locator, Page, expect, type Locator as LocatorType } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 
 export type Selector = string | Locator;
 

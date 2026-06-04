@@ -1,6 +1,6 @@
 
-import{LoginPage} from '../pages/LoginPage';
-import { test, expect } from '../fixtures/basefixtures';
+import{LoginPage} from '../pages/LoginPage.js';
+import { test, expect } from '../fixtures/basefixtures.js';
 
 test('verify valid login page @smoke',
     {
@@ -18,9 +18,9 @@ test('verify valid login page @smoke',
 );
 
 test('verify invalid login page', async ({page, baseURL})=>{
-    let lp = new LoginPage(page);
+    const lp = new LoginPage(page);
     await lp.gotoLoginPage(baseURL);
-    await lp.doLogin("abc@gmail.com", "123456789");
+    await lp.doLogin('abc@gmail.com', '123456789');
     const msg = await lp.geterrormsg();
-    expect(msg).toContain(" Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.");
+    expect(msg).toContain(' Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.');
 });

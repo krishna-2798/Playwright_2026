@@ -1,6 +1,6 @@
 import {Page,Locator} from '@playwright/test';
-import { ElementsUtil } from '../utils/ElementsUtil';
-import { ProductInfoPage } from './ProductInfoPage';
+import { ElementsUtil } from '../utils/ElementsUtil.js';
+import { ProductInfoPage } from './ProductInfoPage.js';
 
 
 
@@ -15,7 +15,7 @@ export class ResultsPage
     {
         this.page=page;
         this.eleUtil=new ElementsUtil(page);
-        this.searchresult=page.locator(".product-thumb");
+        this.searchresult=page.locator('.product-thumb');
 
     }
 

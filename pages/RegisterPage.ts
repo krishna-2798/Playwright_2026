@@ -1,5 +1,5 @@
 import {Page, Locator} from '@playwright/test';
-import { ElementsUtil } from '../utils/ElementsUtil';
+import { ElementsUtil } from '../utils/ElementsUtil.js';
 
 export class RegisterPage{
     private readonly page: Page;
@@ -21,15 +21,15 @@ constructor(page:Page)
     
     this.page = page;
     this.eleUtil = new ElementsUtil(page);
-    this.first_name= page.locator("#input-firstname");
-    this.last_name= page.locator("#input-lastname");
-    this.email=page.locator("#input-email");
-    this.telephone=page.locator("#input-telephone");
-    this.password= page.locator("#input-password");
-    this.confirm_password=page.locator("#input-confirm");
+    this.first_name= page.locator('#input-firstname');
+    this.last_name= page.locator('#input-lastname');
+    this.email=page.locator('#input-email');
+    this.telephone=page.locator('#input-telephone');
+    this.password= page.locator('#input-password');
+    this.confirm_password=page.locator('#input-confirm');
     this.subscribeyes = page.getByRole('radio',{name:'Yes'});
     this.subscribeno = page.getByRole('radio',{name:'No'});
-    this.checkbox = page.locator("input[type='checkbox'][name='agree']");
+    this.checkbox = page.locator('input[type=\'checkbox\'][name=\'agree\']');
     this.continueButton = page.getByRole('button',{name:'Continue'});
     this.successmsg=page.getByText('Your Account Has Been Created!', { exact: true });
 
@@ -52,7 +52,7 @@ await this.eleUtil.fill(this.password, passwd);
 await this.eleUtil.fill(this.confirm_password, passwd);
 
 
-if (subscribeNewsletter.toLowerCase() === "yes") {
+if (subscribeNewsletter.toLowerCase() === 'yes') {
   await this.eleUtil.click(this.subscribeyes);
 } else {
   await this.eleUtil.click(this.subscribeno);
@@ -65,6 +65,5 @@ await this.eleUtil.click(this.continueButton);
 
 return await this.eleUtil.isVisible(this.successmsg);
 }
-
 
 }

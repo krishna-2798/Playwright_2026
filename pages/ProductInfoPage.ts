@@ -1,5 +1,5 @@
 import {Page, Locator} from '@playwright/test';
-import { ElementsUtil } from '../utils/ElementsUtil';
+import { ElementsUtil } from '../utils/ElementsUtil.js';
 
 
 
@@ -18,15 +18,15 @@ export class ProductInfoPage
     {
         this.page=page;
         this.eleUtil=new ElementsUtil(page);
-        this.header=page.locator("h1");
-        this.imgcount = page.locator("div#content img");
+        this.header=page.locator('h1');
+        this.imgcount = page.locator('div#content img');
         this.metadata=page.locator("(//div[@id='content']//ul[@class='list-unstyled'])[1]//li");
         this.pricing=page.locator("(//div[@id='content']//ul[@class='list-unstyled'])[2]//li");
     }
 
     async getProductheader():Promise<string>
     {
-        const header=await this.eleUtil.getInnerTexts(this.header)
+        const header=await this.eleUtil.getInnerTexts(this.header);
         return header.trim();
     }
 
@@ -39,15 +39,15 @@ export class ProductInfoPage
 
     async productMetaData()
     {
-        let metadata:string[]=await this.eleUtil.getAllInnerTexts(this.metadata);
-        for(let meta of metadata)
+        const metadata:string[]=await this.eleUtil.getAllInnerTexts(this.metadata);
+        for(const meta of metadata)
         {
-            let metadata:string[]=meta.split(':');
+            const metadata:string[]=meta.split(':');
             if (metadata.length < 2) {
                 continue;
             }
-            let key=metadata[0].trim().toLowerCase();
-            let value = metadata[1].trim();
+            const key=metadata[0].trim().toLowerCase();
+            const value = metadata[1].trim();
             this.productmap.set(key,value);
         }
     }
@@ -62,10 +62,10 @@ export class ProductInfoPage
     
     async productPricing()
     {
-        let pricing:string[]=await this.eleUtil.getAllInnerTexts(this.pricing);
+        const pricing:string[]=await this.eleUtil.getAllInnerTexts(this.pricing);
 
-            let productprice=pricing[0].trim();
-            let extaxprice = pricing[1].split(':')[1].trim();
+            const productprice=pricing[0].trim();
+            const extaxprice = pricing[1].split(':')[1].trim();
             this.productmap.set('price', productprice);
             this.productmap.set('productextax', extaxprice);
         

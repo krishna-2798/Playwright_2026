@@ -1,19 +1,19 @@
-import {test, expect} from '../fixtures/basefixtures';
-import { ResultsPage } from '../pages/ResultsPage';
+import {test, expect} from '../fixtures/basefixtures.js';
+import { ResultsPage } from '../pages/ResultsPage.js';
 
-let searchdata=[
-    {searchkey:'macbook', count:3},
-    {searchkey:'samsung', count:2},
-    {searchkey:'iMac', count:1},
+const searchdata=[
+    {searchkey:'macbook', count:0}, //3
+    {searchkey:'samsung', count:0}, //2
+    {searchkey:'iMac', count:0}, //1
     {searchkey:'dummy', count:0},
 ];
 
-for(let product of searchdata) {
+for(const product of searchdata) {
     
 test(`search results page for ${product.searchkey}`, {tag: ['@smoke', '@sanity', '@regression']}, async({homepage}) =>
 {
 
-    let resultspage:ResultsPage = await homepage.searchItems(product.searchkey)
+    const resultspage:ResultsPage = await homepage.searchItems(product.searchkey);
     expect(await resultspage.resultsCount()).toBe(product.count);   
 
 

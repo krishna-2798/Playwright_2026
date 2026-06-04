@@ -1,7 +1,7 @@
 import {Page, Locator} from '@playwright/test';
-import {ElementsUtil} from '../utils/ElementsUtil';
-import { LoginPage } from './LoginPage';
-import { ResultsPage } from './ResultsPage';
+import {ElementsUtil} from '../utils/ElementsUtil.js';
+import { LoginPage } from './LoginPage.js';
+import { ResultsPage } from './ResultsPage.js';
 
 export class HomePage
 {
@@ -16,16 +16,21 @@ export class HomePage
     {
         this.page=page;
         this.eleUtil=new ElementsUtil(page);
-        this.loginlink=page.getByText("Login");
+        this.loginlink=page.getByText('Login');
         this.logoutlink=page.getByRole('link',{name:'Logout'});
-        this.search=page.getByPlaceholder("Search");
-        this.searchicon=page.locator(".btn.btn-default.btn-lg");
+        this.search=page.getByPlaceholder('Search');
+        this.searchicon=page.locator('.btn.btn-default.btn-lg');
         
     }
 
     async isUserloggedIn(): Promise<boolean>
     {
-        return await this.eleUtil.isVisible(this.logoutlink, 0);
+        try {
+            await this.logoutlink.waitFor({ state: 'visible', timeout: 10000 });
+            return true;
+        } catch {
+            return false;
+        }
     }
 
     async isLogout(): Promise<LoginPage>

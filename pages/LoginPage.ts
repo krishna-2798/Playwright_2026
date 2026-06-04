@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
-import { ElementsUtil } from '../utils/ElementsUtil';
-import { HomePage } from './HomePage';
-import { RegisterPage } from './RegisterPage';
+import { ElementsUtil } from '../utils/ElementsUtil.js';
+import { HomePage } from './HomePage.js';
+import { RegisterPage } from './RegisterPage.js';
 
 export class LoginPage {
     private readonly page: Page;
@@ -40,7 +40,7 @@ async geterrormsg():Promise<string>
 {
     const errormsg = await this.eleUtil.getText(this.warnmsg);
     console.log(`Error message is ${errormsg}`);
-    return errormsg
+    return errormsg;
 }
 
 async navigatetoregister():Promise<RegisterPage>
