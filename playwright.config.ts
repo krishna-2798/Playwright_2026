@@ -48,8 +48,8 @@ export default defineConfig({
   },
 
   metadata: {
-    appUsername: 'pwtest@nal.com',
-    appPassword: 'test123'
+    appUsername: 'abcds@gmail.com',
+    appPassword: '123456789'
   },
 
   /* Configure projects for major browsers */
