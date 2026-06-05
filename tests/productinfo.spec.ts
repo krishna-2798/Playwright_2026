@@ -12,7 +12,7 @@ const searchdata =[
 
 for (const product of searchdata)
 {
-    test(`verify the product header name ${product.productname}`, {tag:['@sanity', '@regression']}, async({homepage})=>{
+    test(`verify the product header name ${product.productname}`, {tag:['@sanity', '@regression', '@sample']}, async({homepage})=>{
 
         const resultpage:ResultsPage = await homepage.searchItems(product.searchkey);
         const productinfo:ProductInfoPage = await resultpage.selectProduct(product.productname);
