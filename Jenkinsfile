@@ -25,27 +25,10 @@
 // - Pipeline Stage View Plugin
 // ============================================
 
-pipeline {
-    agent any
+            script {
+                // Slack notifications disabled
+                echo 'Slack notifications are disabled in Jenkinsfile.'
 
-    tools {
-        nodejs 'NodeJS-20'
-    }
-
-    environment {
-        NODE_VERSION = '20'
-        CI = 'true'
-        PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}/.cache/ms-playwright"
-        SLACK_WEBHOOK_URL = credentials('slack-webhook-token')
-        // Email recipients - update these with your actual email addresses
-        EMAIL_RECIPIENTS = 'krishna.270798@gmail.com, gopikrishna.boina@gmail.com'
-    }
-
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '20'))
-        timestamps()
-        timeout(time: 60, unit: 'MINUTES')
-        disableConcurrentBuilds()
     }
 
     stages {
@@ -508,45 +491,17 @@ ${prodEmoji} PROD:  ${prodStatus}
             echo '✅ Pipeline completed successfully!'
 
             script {
-                // Slack notification
-                try {
-                    slackSend(
-                        color: 'good',
-                        message: """✅ *Playwright Pipeline: All Tests Passed*
+                // Slack notifications disabled
+                echo 'Slack notifications are disabled in Jenkinsfile.'
 
-*Repository:* ${env.JOB_NAME}
-*Branch:* ${env.GIT_BRANCH ?: 'N/A'}
-*Build:* #${env.BUILD_NUMBER}
-
-*Test Results:*
-${env.DEV_EMOJI} DEV: ${env.DEV_TEST_STATUS}
-${env.QA_EMOJI} QA: ${env.QA_TEST_STATUS}
-${env.STAGE_EMOJI} STAGE: ${env.STAGE_TEST_STATUS}
-${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
-
-📊 <${env.BUILD_URL}allure|Combined Allure Report>
-🔗 <${env.BUILD_URL}|View Build>"""
-                    )
-                } catch (Exception e) {
                     echo "Slack notification failed: ${e.message}"
                 }
 
                 // Email notification
-                try {
-                    emailext(
-                        subject: "✅ Playwright Tests Passed - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
-        .header { background: #27ae60; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
-        .content { background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }
-        .status-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-        .status-table th, .status-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-        .status-table th { background: #ecf0f1; }
-        .success { color: #27ae60; font-weight: bold; }
+                script {
+                    // Slack notifications disabled
+                    echo 'Slack notifications are disabled in Jenkinsfile.'
+                }
         .failure { color: #e74c3c; font-weight: bold; }
         .btn { display: inline-block; padding: 8px 16px; background: #3498db; color: white; text-decoration: none; border-radius: 5px; margin: 3px; font-size: 12px; }
         .btn-green { background: #27ae60; }
@@ -663,28 +618,28 @@ ${env.PROD_EMOJI} PROD: ${env.PROD_TEST_STATUS}
             echo '❌ Pipeline failed!'
 
             script {
-                // Slack notification
-                try {
-                    slackSend(
-                        color: 'danger',
-                        message: """❌ *Playwright Pipeline: Tests Failed*
+//                 // Slack notification
+//                 try {
+//                     slackSend(
+//                         color: 'danger',
+//                         message: """❌ *Playwright Pipeline: Tests Failed*
 
-*Repository:* ${env.JOB_NAME}
-*Branch:* ${env.GIT_BRANCH ?: 'N/A'}
-*Build:* #${env.BUILD_NUMBER}
+// *Repository:* ${env.JOB_NAME}
+// *Branch:* ${env.GIT_BRANCH ?: 'N/A'}
+// *Build:* #${env.BUILD_NUMBER}
 
-*Test Results:*
-${env.DEV_EMOJI ?: '❓'} DEV: ${env.DEV_TEST_STATUS ?: 'not run'}
-${env.QA_EMOJI ?: '❓'} QA: ${env.QA_TEST_STATUS ?: 'not run'}
-${env.STAGE_EMOJI ?: '❓'} STAGE: ${env.STAGE_TEST_STATUS ?: 'not run'}
-${env.PROD_EMOJI ?: '❓'} PROD: ${env.PROD_TEST_STATUS ?: 'not run'}
+// *Test Results:*
+// ${env.DEV_EMOJI ?: '❓'} DEV: ${env.DEV_TEST_STATUS ?: 'not run'}
+// ${env.QA_EMOJI ?: '❓'} QA: ${env.QA_TEST_STATUS ?: 'not run'}
+// ${env.STAGE_EMOJI ?: '❓'} STAGE: ${env.STAGE_TEST_STATUS ?: 'not run'}
+// ${env.PROD_EMOJI ?: '❓'} PROD: ${env.PROD_TEST_STATUS ?: 'not run'}
 
-📊 <${env.BUILD_URL}allure|View Allure Report>
-🔗 <${env.BUILD_URL}|View Build>"""
-                    )
-                } catch (Exception e) {
-                    echo "Slack notification failed: ${e.message}"
-                }
+// 📊 <${env.BUILD_URL}allure|View Allure Report>
+// 🔗 <${env.BUILD_URL}|View Build>"""
+//                     )
+//                 } catch (Exception e) {
+//                     echo "Slack notification failed: ${e.message}"
+//                 }
 
                 // Email notification
                 try {
@@ -812,26 +767,26 @@ ${env.PROD_EMOJI ?: '❓'} PROD: ${env.PROD_TEST_STATUS ?: 'not run'}
             }
         }
 
-        unstable {
-            echo '⚠️ Pipeline completed with warnings!'
+//         unstable {
+//             echo '⚠️ Pipeline completed with warnings!'
 
-            script {
-                try {
-                    slackSend(
-                        color: 'warning',
-                        message: """⚠️ *Playwright Pipeline: Unstable*
+//             script {
+//                 try {
+//                     slackSend(
+//                         color: 'warning',
+//                         message: """⚠️ *Playwright Pipeline: Unstable*
 
-*Repository:* ${env.JOB_NAME}
-*Branch:* ${env.GIT_BRANCH ?: 'N/A'}
-*Build:* #${env.BUILD_NUMBER}
+// *Repository:* ${env.JOB_NAME}
+// *Branch:* ${env.GIT_BRANCH ?: 'N/A'}
+// *Build:* #${env.BUILD_NUMBER}
 
-📊 <${env.BUILD_URL}allure|View Allure Report>
-🔗 <${env.BUILD_URL}|View Build>"""
-                    )
-                } catch (Exception e) {
-                    echo "Slack notification failed: ${e.message}"
-                }
-            }
-        }
+// 📊 <${env.BUILD_URL}allure|View Allure Report>
+// 🔗 <${env.BUILD_URL}|View Build>"""
+//                     )
+//                 } catch (Exception e) {
+//                     echo "Slack notification failed: ${e.message}"
+//                 }
+//             }
+//         }
     }
 }
